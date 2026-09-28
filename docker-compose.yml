@@ -12,3 +12,10 @@ services:
       - ./etc/php/docker-php-ext-pcov.ini:/usr/local/etc/php/conf.d/docker-php-ext-pcov.ini
     extra_hosts:
       - "host.docker.internal:host-gateway"
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: 2gb

@@ -1,0 +1,13 @@
+actor: ApiTester
+
+modules:
+    enabled:
+        - REST:
+              depends: PhpBrowser
+
+        - PhpBrowser:
+              url: '%API_URL%'
+
+        - Asserts
+
+step_decorators: ~
