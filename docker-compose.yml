@@ -1,0 +1,14 @@
+services:
+  php:
+    restart: unless-stopped
+    build: docker/images/php
+    working_dir: /var/www/backend
+    command: bash -c "php-fpm"
+    volumes:
+      - ./backend:/var/www/backend
+      - ./docker/data/composer/:/root/.composer
+      - ./etc/php/custom.ini:/usr/local/etc/php/conf.d/custom.ini
+      - ./etc/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./etc/php/docker-php-ext-pcov.ini:/usr/local/etc/php/conf.d/docker-php-ext-pcov.ini
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
