@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Support\Page\Acceptance;
 
 class LoginPage
@@ -12,7 +14,7 @@ class LoginPage
 
     public const SUBMIT_BUTTON = 'button[type="submit"]';
 
-    public const FORGOT_PASSWORD_LINK = '#login-form a';
+    public const FORGOT_PASSWORD_LINK = '#login-form a[href*="restore-password"]';
 
     public const ERROR_MESSAGE = '#login-form .has-error .help-block-error';
 

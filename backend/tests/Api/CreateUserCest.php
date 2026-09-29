@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Api;
 
 use Tests\Support\ApiTester;
@@ -24,6 +26,8 @@ class CreateUserCest
         );
 
         $I->seeResponseCodeIsSuccessful();
+
+        $I->seeResponseCodeIs(201);
 
         $I->seeResponseIsJson();
 

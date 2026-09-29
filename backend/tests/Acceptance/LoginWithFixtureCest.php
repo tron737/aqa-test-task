@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Acceptance;
 
 use Tests\Support\AcceptanceTester;
-use tests\Support\Page\Acceptance\LoginPage;
+use Tests\Support\Page\Acceptance\LoginPage;
 
 class LoginWithFixtureCest
 {
@@ -29,5 +31,7 @@ class LoginWithFixtureCest
         );
 
         $I->click(LoginPage::SUBMIT_BUTTON);
+
+        $I->seeCurrentUrlEquals('/dashboard');
     }
 }

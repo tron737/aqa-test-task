@@ -50,6 +50,11 @@
 docker compose up -d
 ```
 
+Заполнить env
+```bash
+cp backend/.env.example backend/.env
+```
+
 Установка зависимостей:
 ```bash
 docker compose exec php composer install

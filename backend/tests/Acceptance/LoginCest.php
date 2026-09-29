@@ -69,20 +69,11 @@ final class LoginCest
     {
         $I->click(LoginPage::SUBMIT_BUTTON);
 
-        $I->waitForText(
-            LoginPage::EMAIL_REQUIRED_ERROR,
-            10
-        );
+        $I->waitForText(LoginPage::EMAIL_REQUIRED_ERROR, 10);
 
-        $I->see(
-            LoginPage::EMAIL_REQUIRED_ERROR,
-            LoginPage::ERROR_MESSAGE
-        );
+        $I->see(LoginPage::EMAIL_REQUIRED_ERROR, LoginPage::ERROR_MESSAGE);
 
-        $I->see(
-            LoginPage::PASSWORD_REQUIRED_ERROR,
-            LoginPage::ERROR_MESSAGE
-        );
+        $I->see(LoginPage::PASSWORD_REQUIRED_ERROR, LoginPage::ERROR_MESSAGE);
 
         $I->seeInCurrentUrl(LoginPage::URL);
     }
@@ -92,21 +83,11 @@ final class LoginCest
      */
     public function passwordShouldBeMasked(AcceptanceTester $I): void
     {
-        $I->fillField(
-            LoginPage::PASSWORD_INPUT,
-            'SecretPassword123!'
-        );
+        $I->fillField(LoginPage::PASSWORD_INPUT, 'SecretPassword123!');
 
-        $passwordType = $I->grabAttributeFrom(
-            LoginPage::PASSWORD_INPUT,
-            'type'
-        );
+        $passwordType = $I->grabAttributeFrom(LoginPage::PASSWORD_INPUT, 'type');
 
-        $I->assertSame(
-            'password',
-            $passwordType,
-            'Поле пароля должно иметь type="password"'
-        );
+        $I->assertSame('password', $passwordType, 'Поле пароля должно иметь type="password"');
     }
 
     /**
@@ -114,22 +95,12 @@ final class LoginCest
      */
     public function forgotPasswordLinkShouldWork(AcceptanceTester $I): void
     {
-        $I->seeElement(
-            LoginPage::FORGOT_PASSWORD_LINK
-        );
+        $I->seeElement(LoginPage::FORGOT_PASSWORD_LINK);
 
-        $I->click(
-            LoginPage::FORGOT_PASSWORD_LINK
-        );
+        $I->click(LoginPage::FORGOT_PASSWORD_LINK);
 
         $I->waitForElementVisible('form', 10);
 
         $I->seeInCurrentUrl('/site/restore-password');
-    }
-
-    // All `public` methods will be executed as tests.
-    public function tryToTest(AcceptanceTester $I): void
-    {
-        // Write your test content here.
     }
 }
