@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Acceptance;
 
+use Codeception\Attribute\Examples;
+use Codeception\Example;
 use Tests\Support\AcceptanceTester;
 use Tests\Support\Page\Acceptance\LoginPage;
 
@@ -17,29 +19,47 @@ final class LoginCest
     /**
      * Проверка входа с невалидным логином и паролем
      */
-    public function loginWithInvalidCredentials(AcceptanceTester $I): void
+    #[Examples(
+        email: 'test@test.com',
+        password: 'invalid_password',
+        errorSelector: LoginPage::ERROR_MESSAGE,
+        error: LoginPage::INVALID_CREDENTIALS_TEXT
+    )]
+    #[Examples(
+        email: 'test@example.com',
+        password: '123',
+        errorSelector: LoginPage::ERROR_MESSAGE,
+        error: LoginPage::INVALID_CREDENTIALS_TEXT
+    )]
+    #[Examples(
+        email: 'not-existing-user@example.com',
+        password: 'Qwerty123!',
+        errorSelector: LoginPage::ERROR_MESSAGE,
+        error: LoginPage::INVALID_CREDENTIALS_TEXT
+    )]
+    #[Examples(
+        email: 'not-email',
+        password: 'Qwerty123!',
+        errorSelector: LoginPage::EMAIL_ERROR_MESSAGE,
+        error: LoginPage::INVALID_EMAIL_TEXT
+    )]
+    public function loginWithInvalidCredentials(AcceptanceTester $I, Example $example): void
     {
         $I->fillField(
             LoginPage::LOGIN_INPUT,
-            'test@test.com'
+            $example['email']
         );
 
         $I->fillField(
             LoginPage::PASSWORD_INPUT,
-            'invalid_password'
+            $example['password']
         );
 
         $I->click(LoginPage::SUBMIT_BUTTON);
 
-        $I->waitForElementVisible(
-            LoginPage::ERROR_MESSAGE,
-            10
-        );
+        $I->waitForElementVisible(element: $example['errorSelector'], timeout: 10);
 
-        $I->see(
-            LoginPage::INVALID_CREDENTIALS_TEXT,
-            LoginPage::ERROR_MESSAGE
-        );
+        $I->see(text: $example['error'], selector: $example['errorSelector']);
     }
 
     /**

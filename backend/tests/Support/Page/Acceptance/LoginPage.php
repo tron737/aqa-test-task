@@ -17,6 +17,8 @@ class LoginPage
     public const ERROR_MESSAGE = '#login-form .has-error .help-block-error';
 
     public const INVALID_CREDENTIALS_TEXT = 'Incorrect email / password';
+    public const EMAIL_ERROR_MESSAGE = '#login-form .field-loginform-email .help-block-error';
+    public const INVALID_EMAIL_TEXT = 'Invalid email';
 
     public const EMAIL_REQUIRED_ERROR = 'Email cannot be blank.';
     public const PASSWORD_REQUIRED_ERROR = 'Password cannot be blank.';
